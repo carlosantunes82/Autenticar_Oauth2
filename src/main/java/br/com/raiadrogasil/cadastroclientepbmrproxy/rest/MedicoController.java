@@ -1,6 +1,7 @@
 package br.com.raiadrogasil.cadastroclientepbmrproxy.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,10 +24,13 @@ import java.util.Map;
 @RequestMapping("medico")
 public class MedicoController {
 
+    private final String TC_SERVICOS_URL;
     private RestTemplate restClient;
 
-    public MedicoController(@Autowired RestTemplate restClient){
+    public MedicoController(@Autowired RestTemplate restClient,
+                            @Value("${terminalconsultaservicos.url}") String tcServicosUrl){
         this.restClient = restClient;
+        this.TC_SERVICOS_URL = tcServicosUrl;
     }
 
     @RequestMapping("/crm/{crm}/uf/{uf}")
@@ -36,12 +40,12 @@ public class MedicoController {
                                    @PathVariable long crm,
                                @Size(min = 2, max = 2, message = "UF deve conter dois caractéres")
                                    @NotNull(message = "UF deve ser informado")
-                                   @PathVariable String uf) throws URISyntaxException {
+                                   @PathVariable String uf) {
 
         Map<String, Object> variables = new HashMap<>();
-        variables.put("crm", crm);
         variables.put("uf", uf);
-        return restClient.getForEntity("http://192.1.1.70/terminalconsulta-servicos/aderenciaTratamento/medico/{crm}/{uf}",
+        variables.put("crm", crm);
+        return restClient.getForEntity(TC_SERVICOS_URL + "aderenciaTratamento/medico/{crm}/{uf}",
                 String.class,
                 variables);
     }
