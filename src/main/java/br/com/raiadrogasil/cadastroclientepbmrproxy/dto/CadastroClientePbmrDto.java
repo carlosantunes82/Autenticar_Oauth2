@@ -1,52 +1,94 @@
 package br.com.raiadrogasil.cadastroclientepbmrproxy.dto;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
+
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Date;
 
-public class CadastroClientePbmrDto implements Serializable {
+public class CadastroClientePbmrDto {
 
     private String acao;
 
-    private String idCliente;
+    private Long idCliente;
 
+    @Size(min = 1, message = "Favor informar o nome.")
+    @NotNull(message = "Favor informar o nome.")
     private String nome;
 
-    private String cpf;
+    @Min(value = 1, message = "Favor informar o CPF.")
+    @NotNull(message = "Favor informar o CPF.")
+    private Long cpf;
 
+    @Size(min = 1, message = "Favor informar o CPF.")
+    @NotNull(message = "Favor informar o CPF.")
     private String dataNascimento;
 
+    @Size(min = 1, message = "Favor informar o sexo.")
+    @NotNull(message = "Favor informar o sexo.")
     private String sexo;
 
+//    @Size(min = 1, message = "Favor informar o tipo do logradouro..")
+//    @NotNull(message = "Favor informar o tipo do logradouro..")
     private String tipoLogradouro; // VERIFICAR
 
+    @Size(min = 1, message = "Favor informar o endereco.")
+    @NotNull(message = "Favor informar o endereco.")
     private String endereco;
 
-    private String numero;
+    @Min(value = 1, message = "Favor informar o numero.")
+    @NotNull(message = "Favor informar o numero.")
+    private Integer numero;
 
     private String complemento;
 
+    @Size(min = 1, message = "Favor informar o cep.")
+    @NotNull(message = "Favor informar o cep.")
     private String cep;
 
+    @Size(min = 1, message = "Favor informar o bairro.")
+    @NotNull(message = "Favor informar o bairro.")
     private String bairro;
 
+    @Size(min = 1, message = "Favor informar o cidade.")
+    @NotNull(message = "Favor informar o cidade.")
     private String cidade;
 
+    @Size(min = 1, message = "Favor informar UF.")
+    @NotNull(message = "Favor informar o UF.")
     private String uf;
 
-    private String dddTelefone;
+    @Min(value = 1, message = "Favor informar o DDD do telefone residencial.")
+    @NotNull(message = "Favor informar o o DDD do telefone residencial.")
+    private Integer dddTelefone;
 
-    private String telefone;
+    @Min(value = 1, message = "Favor informar o telefone residencial.")
+    @NotNull(message = "Favor informar o telefone residencial.")
+    private Long telefone;
 
-    private String dddCelular;
+    @Min(value = 1, message = "Favor informar o DDD do celular.")
+    @NotNull(message = "Favor informar o DDD do celular.")
+    private Integer dddCelular;
 
-    private String celular;
+    @Min(value = 1, message = "Favor informar o telefone celular.")
+    @NotNull(message = "Favor informar o telefone celular.")
+    private Long celular;
 
+    @Size(min = 1, message = "Favor informar o e-mail.")
+    @NotNull(message = "Favor informar o e-mail.")
     private String email;
 
-    private String medicoCrm;
+    @Min(value = 1, message = "Favor informar o CRM do medico.")
+    @NotNull(message = "Favor informar o CRM do medico.")
+    private Long medicoCrm;
 
+    @Size(min = 1, message = "Favor informar o nome do medico.")
+    @NotNull(message = "Favor informar o nome do medico.")
     private String medicoNome;
 
+    @Size(min = 1, message = "Favor informar o UF do medico.")
+    @NotNull(message = "Favor informar o UF do medico.")
     private String medicoUf;
 
     private String contatoEmail;
@@ -57,7 +99,7 @@ public class CadastroClientePbmrDto implements Serializable {
 
     private String contatoPermissao;
 
-    private String cdProduto;
+    private Long cdProduto;
 
     private String precoBruto;
 
@@ -65,7 +107,7 @@ public class CadastroClientePbmrDto implements Serializable {
 
     private String isContatos;
 
-    private String nrSequenciaEndereco;
+    private Long nrSequenciaEndereco;
 
     public String getAcao() {
         return acao;
@@ -75,11 +117,11 @@ public class CadastroClientePbmrDto implements Serializable {
         this.acao = acao;
     }
 
-    public String getIdCliente() {
+    public Long getIdCliente() {
         return idCliente;
     }
 
-    public void setIdCliente(String idCliente) {
+    public void setIdCliente(Long idCliente) {
         this.idCliente = idCliente;
     }
 
@@ -91,11 +133,11 @@ public class CadastroClientePbmrDto implements Serializable {
         this.nome = nome;
     }
 
-    public String getCpf() {
+    public Long getCpf() {
         return cpf;
     }
 
-    public void setCpf(String cpf) {
+    public void setCpf(Long cpf) {
         this.cpf = cpf;
     }
 
@@ -131,11 +173,11 @@ public class CadastroClientePbmrDto implements Serializable {
         this.endereco = endereco;
     }
 
-    public String getNumero() {
+    public Integer getNumero() {
         return numero;
     }
 
-    public void setNumero(String numero) {
+    public void setNumero(Integer numero) {
         this.numero = numero;
     }
 
@@ -179,35 +221,35 @@ public class CadastroClientePbmrDto implements Serializable {
         this.uf = uf;
     }
 
-    public String getDddTelefone() {
+    public Integer getDddTelefone() {
         return dddTelefone;
     }
 
-    public void setDddTelefone(String dddTelefone) {
+    public void setDddTelefone(Integer dddTelefone) {
         this.dddTelefone = dddTelefone;
     }
 
-    public String getTelefone() {
+    public Long getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(String telefone) {
+    public void setTelefone(Long telefone) {
         this.telefone = telefone;
     }
 
-    public String getDddCelular() {
+    public Integer getDddCelular() {
         return dddCelular;
     }
 
-    public void setDddCelular(String dddCelular) {
+    public void setDddCelular(Integer dddCelular) {
         this.dddCelular = dddCelular;
     }
 
-    public String getCelular() {
+    public Long getCelular() {
         return celular;
     }
 
-    public void setCelular(String celular) {
+    public void setCelular(Long celular) {
         this.celular = celular;
     }
 
@@ -219,11 +261,11 @@ public class CadastroClientePbmrDto implements Serializable {
         this.email = email;
     }
 
-    public String getMedicoCrm() {
+    public Long getMedicoCrm() {
         return medicoCrm;
     }
 
-    public void setMedicoCrm(String medicoCrm) {
+    public void setMedicoCrm(Long medicoCrm) {
         this.medicoCrm = medicoCrm;
     }
 
@@ -275,11 +317,11 @@ public class CadastroClientePbmrDto implements Serializable {
         this.contatoPermissao = contatoPermissao;
     }
 
-    public String getCdProduto() {
+    public Long getCdProduto() {
         return cdProduto;
     }
 
-    public void setCdProduto(String cdProduto) {
+    public void setCdProduto(Long cdProduto) {
         this.cdProduto = cdProduto;
     }
 
@@ -307,11 +349,11 @@ public class CadastroClientePbmrDto implements Serializable {
         this.isContatos = isContatos;
     }
 
-    public String getNrSequenciaEndereco() {
+    public Long getNrSequenciaEndereco() {
         return nrSequenciaEndereco;
     }
 
-    public void setNrSequenciaEndereco(String nrSequenciaEndereco) {
+    public void setNrSequenciaEndereco(Long nrSequenciaEndereco) {
         this.nrSequenciaEndereco = nrSequenciaEndereco;
     }
 
