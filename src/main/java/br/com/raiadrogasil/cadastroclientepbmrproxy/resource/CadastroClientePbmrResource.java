@@ -1,22 +1,24 @@
-package br.com.raiadrogasil.cadastroclientepbmrproxy.rest;
+package br.com.raiadrogasil.cadastroclientepbmrproxy.resource;
 
 import br.com.raiadrogasil.cadastroclientepbmrproxy.dto.CadastroClientePbmrDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import javax.validation.Valid;
-import javax.xml.ws.Response;
+import javax.validation.constraints.NotNull;
 
-import java.util.HashMap;
+import java.net.URI;
 import java.util.Map;
 
 @RestController
-@RequestMapping("validarDadosClientePbmr")
-public class CadClientePbmrRestController {
+@RequestMapping
+public class CadastroClientePbmrResource {
 
     @Value("${portaltc.url.base}")
     private String baseUrl;
@@ -31,28 +33,28 @@ public class CadClientePbmrRestController {
     private RestTemplate restTemplate;
 
 
-    @GetMapping(path = "getDadosCadastraisCliente")
-    private ResponseEntity getDadosCadastraisCliente(@RequestParam Map<String, String> params) {
-
+    @GetMapping(path = "v1/pbms/clientes")
+    private ResponseEntity getPbmsClientes(@Valid @NotNull(message = "ID do cliente deve ser informado")
+                                                          @RequestParam String idCliente) {
         ResponseEntity response =
-                restTemplate.getForEntity(baseUrl + urlGetCliente , String.class, params);
+                restTemplate.getForEntity(baseUrl + urlGetCliente , String.class, idCliente);
 
         return ResponseEntity.ok(response.getBody());
     }
 
-    @PostMapping(path = "gravarClientRaiaDrogasil")
+    @PostMapping("v1/pbms/clientes")
     @ResponseBody
-      private ResponseEntity<?> gravarClientRaiaDrogasil(@RequestBody @Valid CadastroClientePbmrDto cadastroClientePbmrDto) {
+    private ResponseEntity postsPbmClientes(@RequestBody @Valid CadastroClientePbmrDto cadastroClientePbmrDto) {
 
         Map<String, String> map =  new ObjectMapper().convertValue(cadastroClientePbmrDto, Map.class);
 
         ResponseEntity<String> response =
                 restTemplate.getForEntity(baseUrl + urlGravarCliente, String.class, map );
 
-        return ResponseEntity.ok().build();
-
+        URI location = URI.create("");
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.setLocation(location);
+        return new ResponseEntity( responseHeaders, HttpStatus.CREATED);
+//        return ResponseEntity.ok().build();
     }
-
-
-
 }

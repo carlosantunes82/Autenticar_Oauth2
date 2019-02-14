@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Medico {
+public class MedicoDto {
 
     @JsonProperty("idProfissionalCr")
     private long id;
@@ -18,13 +18,13 @@ public class Medico {
     @JsonProperty("nmProfissional")
     private String nome;
 
-    public Medico(long crm){
+    public MedicoDto(long crm){
         this.crm = crm;
     }
 
     @JsonCreator
-    public Medico(@JsonProperty("nrCrm") long crm,
-                  @JsonProperty("nmProfissional") String nome) {
+    public MedicoDto(@JsonProperty("nrCrm") long crm,
+                     @JsonProperty("nmProfissional") String nome) {
         this(crm);
         this.nome = nome;
     }
@@ -49,7 +49,7 @@ public class Medico {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Medico medico = (Medico) o;
+        MedicoDto medico = (MedicoDto) o;
         return crm == medico.crm;
     }
 

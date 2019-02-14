@@ -1,6 +1,6 @@
-package br.com.raiadrogasil.cadastroclientepbmrproxy.rest;
+package br.com.raiadrogasil.cadastroclientepbmrproxy.resource;
 
-import br.com.raiadrogasil.cadastroclientepbmrproxy.dto.Medico;
+import br.com.raiadrogasil.cadastroclientepbmrproxy.dto.MedicoDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -21,17 +21,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 @RestController
 @Validated
 @RequestMapping("medico")
-public class MedicoController {
+public class MedicoResource {
 
     private final String TC_SERVICOS_URL;
     private RestTemplate restClient;
 
-    public MedicoController(@Autowired RestTemplate restClient,
-                            @Value("${terminalconsultaservicos.url}") String tcServicosUrl){
+    public MedicoResource(@Autowired RestTemplate restClient,
+                          @Value("${terminalconsultaservicos.url}") String tcServicosUrl){
         this.restClient = restClient;
         this.TC_SERVICOS_URL = tcServicosUrl;
     }
@@ -50,11 +49,13 @@ public class MedicoController {
         Map<String, Object> variables = new HashMap<>();
         variables.put("uf", uf);
         variables.put("crm", crm);
-        return restClient.exchange(TC_SERVICOS_URL + "aderenciaTratamento/medico/{crm}/{uf}",
+        ResponseEntity response = restClient.exchange(TC_SERVICOS_URL + "aderenciaTratamento/medico/{crm}/{uf}",
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<List<Medico>>(){},
+                new ParameterizedTypeReference<List<MedicoDto>>(){},
                 variables);
+
+        return ResponseEntity.ok(response.getBody());
     }
 
 }
