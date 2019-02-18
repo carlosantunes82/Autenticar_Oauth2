@@ -1,4 +1,4 @@
-package br.com.raiadrogasil.cadastroclientepbmrproxy.resource;
+package br.com.raiadrogasil.cadastroclientepbmrproxy.unit;
 
 import br.com.raiadrogasil.cadastroclientepbmrproxy.dto.CadastroClientePbmrDto;
 import br.com.raiadrogasil.cadastroclientepbmrproxy.dto.MedicoDto;
@@ -26,7 +26,7 @@ import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class CadastroClientePbmrResourceTest {
+public class CadastroClientePbmIntegrationTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
@@ -46,36 +46,35 @@ public class CadastroClientePbmrResourceTest {
         String idCliente = "142272012";
         ResponseEntity<String> response = restTemplate.getForEntity(baseUrl + urlGetCliente , String.class, idCliente);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(response.getBody()).contains("XXXX");
     }
 
-    @Test
-    public void getPbmsClientes_comIdClienteAlfanumerico_retornar_INTERNAL_SERVER_ERROR(){
+//    @Test
+//    public void getPbmsClientes_comIdClienteAlfanumerico_retornar_INTERNAL_SERVER_ERROR(){
+//
+//        String idCliente = "142272012";
+//        ResponseEntity<String> response = restTemplate.getForEntity(baseUrl + urlGetCliente , String.class, idCliente);
+//        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR );
+//    }
 
-        String idCliente = "142272012";
-        ResponseEntity<String> response = restTemplate.getForEntity(baseUrl + urlGetCliente , String.class, "teste");
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR );
-    }
-
-    @Test
-    public void getPbmsClientes_comIdClienteVazio_retornar_INTERNAL_SERVER_ERROR(){
-
-        String idCliente = "";
-        ResponseEntity<String> response = restTemplate.getForEntity(baseUrl + urlGetCliente , String.class, "teste");
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR );
-    }
+//    @Test
+//    public void getPbmsClientes_comIdClienteVazio_retornar_INTERNAL_SERVER_ERROR(){
+//
+//        String idCliente = "";
+//        ResponseEntity<String> response = restTemplate.getForEntity(baseUrl + urlGetCliente , String.class, idCliente);
+//        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR );
+//    }
 
     @Test
     public void postsPbmClientes_comDadosTelaCadastro_retornarOk(){
 
         CadastroClientePbmrDto cadastroClientePbmrDto = new CadastroClientePbmrDto();
         cadastroClientePbmrDto.setNome("Jose");
-        cadastroClientePbmrDto.setCpf(21522954875L);
+        cadastroClientePbmrDto.setCpf("21522954875");
         cadastroClientePbmrDto.setSexo("M");
-        cadastroClientePbmrDto.setDddTelefone(11);
-        cadastroClientePbmrDto.setTelefone(22223333L);
-        cadastroClientePbmrDto.setDddCelular(11);
-        cadastroClientePbmrDto.setCelular(975202222L);
+        cadastroClientePbmrDto.setDddTelefone("11");
+        cadastroClientePbmrDto.setTelefone("22223333");
+        cadastroClientePbmrDto.setDddCelular("11");
+        cadastroClientePbmrDto.setCelular("975202222");
         cadastroClientePbmrDto.setEmail("jose@gmail.com");
         cadastroClientePbmrDto.setEndereco("rua Emilio Souza");
         cadastroClientePbmrDto.setNumero(500);

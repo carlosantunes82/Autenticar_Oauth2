@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import javax.validation.ConstraintViolationException;
 import java.util.stream.Collectors;
@@ -54,6 +55,15 @@ public class CustomExceptionHandler {
                         )));
     }
 
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity validationError(MethodArgumentTypeMismatchException ex) {
+
+        return ResponseEntity
+                .badRequest()
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .body(ex.getMessage());
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity validationError(MethodArgumentNotValidException ex) {
 
@@ -71,9 +81,9 @@ public class CustomExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity validationError(Exception ex) {
-        LOGGER.error("Ocorreu um erro no pbmr-proxy.", ex);
+        LOGGER.error("Ocorreu um erro no pbm-proxy.", ex);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .build();
+                .body("Ocorreu um erro interno.");
     }
 }
 

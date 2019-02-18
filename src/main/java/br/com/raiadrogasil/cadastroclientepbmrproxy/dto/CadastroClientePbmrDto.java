@@ -1,94 +1,88 @@
 package br.com.raiadrogasil.cadastroclientepbmrproxy.dto;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
+import net.bytebuddy.implementation.bind.annotation.Empty;
 
 import javax.validation.constraints.*;
-import java.io.Serializable;
-import java.util.Date;
 
 public class CadastroClientePbmrDto {
 
     private String acao;
 
+    @Min(value = 1, message = "Favor informar o campo idCliente.")
+    @NotNull(message = "Favor informar o campo idCliente.")
     private Long idCliente;
 
-    @Size(min = 1, message = "Favor informar o nome.")
-    @NotNull(message = "Favor informar o nome.")
+    @Size(min = 1, message = "Favor informar o campo nome.")
+    @NotNull(message = "Favor informar o campo nome.")
     private String nome;
 
-    @Min(value = 1, message = "Favor informar o CPF.")
-    @NotNull(message = "Favor informar o CPF.")
-    private Long cpf;
+    @Min(value = 1, message = "Favor informar o campo CPF.")
+    @NotNull(message = "Favor informar o campo CPF.")
+    private String cpf;
 
-    @Size(min = 1, message = "Favor informar o CPF.")
-    @NotNull(message = "Favor informar o CPF.")
+    @Size(min = 1, message = "Favor informar o campo dataNascimento.")
+    @NotNull(message = "Favor informar o campo dataNascimento.")
     private String dataNascimento;
 
-    @Size(min = 1, message = "Favor informar o sexo.")
-    @NotNull(message = "Favor informar o sexo.")
+    @Size(min = 1, message = "Favor informar o campo sexo.")
+    @NotNull(message = "Favor informar o campo sexo.")
     private String sexo;
 
 //    @Size(min = 1, message = "Favor informar o tipo do logradouro..")
-//    @NotNull(message = "Favor informar o tipo do logradouro..")
     private String tipoLogradouro; // VERIFICAR
 
-    @Size(min = 1, message = "Favor informar o endereco.")
-    @NotNull(message = "Favor informar o endereco.")
+    @Size(min = 1, message = "Favor informar o campo endereco.")
+    @NotNull(message = "Favor informar o campo endereco.")
     private String endereco;
 
-    @Min(value = 1, message = "Favor informar o numero.")
-    @NotNull(message = "Favor informar o numero.")
+    @Min(value = 1, message = "Favor informar o campo numero.")
+    @NotNull(message = "Favor informar o campo numero.")
     private Integer numero;
 
     private String complemento;
 
-    @Size(min = 1, message = "Favor informar o cep.")
-    @NotNull(message = "Favor informar o cep.")
+    @Size(min = 1, message = "Favor informar o campo cep.")
+    @NotNull(message = "Favor informar o campo cep.")
     private String cep;
 
-    @Size(min = 1, message = "Favor informar o bairro.")
-    @NotNull(message = "Favor informar o bairro.")
+    @Size(min = 1, message = "Favor informar o campo bairro.")
+    @NotNull(message = "Favor informar o campo bairro.")
     private String bairro;
 
-    @Size(min = 1, message = "Favor informar o cidade.")
-    @NotNull(message = "Favor informar o cidade.")
+    @Size(min = 1, message = "Favor informar o campo cidade.")
+    @NotNull(message = "Favor informar o campo cidade.")
     private String cidade;
 
-    @Size(min = 1, message = "Favor informar UF.")
-    @NotNull(message = "Favor informar o UF.")
+    @Size(min = 1, message = "Favor informar o campo UF.")
+    @NotNull(message = "Favor informar o campo UF.")
     private String uf;
 
     @Min(value = 1, message = "Favor informar o DDD do telefone residencial.")
-    @NotNull(message = "Favor informar o o DDD do telefone residencial.")
-    private Integer dddTelefone;
+    private String dddTelefone;
 
     @Min(value = 1, message = "Favor informar o telefone residencial.")
-    @NotNull(message = "Favor informar o telefone residencial.")
-    private Long telefone;
+    private String telefone;
 
     @Min(value = 1, message = "Favor informar o DDD do celular.")
-    @NotNull(message = "Favor informar o DDD do celular.")
-    private Integer dddCelular;
+    private String dddCelular;
 
     @Min(value = 1, message = "Favor informar o telefone celular.")
-    @NotNull(message = "Favor informar o telefone celular.")
-    private Long celular;
+    private String celular;
 
-    @Size(min = 1, message = "Favor informar o e-mail.")
-    @NotNull(message = "Favor informar o e-mail.")
+    @Size(min = 1, message = "Favor informar o campo e-mail.")
+    @NotNull(message = "Favor informar o campo e-mail.")
     private String email;
 
-    @Min(value = 1, message = "Favor informar o CRM do medico.")
-    @NotNull(message = "Favor informar o CRM do medico.")
+    @Min(value = 1, message = "Favor informar o campo medicoCrm.")
+    @NotNull(message = "Favor informar o campo medicoCrm.")
     private Long medicoCrm;
 
-    @Size(min = 1, message = "Favor informar o nome do medico.")
-    @NotNull(message = "Favor informar o nome do medico.")
+    @Size(min = 1, message = "Favor informar o campo medicoNome.")
+    @NotNull(message = "Favor informar o campo medicoNome.")
     private String medicoNome;
 
-    @Size(min = 1, message = "Favor informar o UF do medico.")
-    @NotNull(message = "Favor informar o UF do medico.")
+    @Size(min = 1, message = "Favor informar o campo medicoUf.")
+    @NotNull(message = "Favor informar o campo medicoUf.")
     private String medicoUf;
 
     private String contatoEmail;
@@ -131,14 +125,6 @@ public class CadastroClientePbmrDto {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public Long getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(Long cpf) {
-        this.cpf = cpf;
     }
 
     public String getDataNascimento() {
@@ -219,38 +205,6 @@ public class CadastroClientePbmrDto {
 
     public void setUf(String uf) {
         this.uf = uf;
-    }
-
-    public Integer getDddTelefone() {
-        return dddTelefone;
-    }
-
-    public void setDddTelefone(Integer dddTelefone) {
-        this.dddTelefone = dddTelefone;
-    }
-
-    public Long getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(Long telefone) {
-        this.telefone = telefone;
-    }
-
-    public Integer getDddCelular() {
-        return dddCelular;
-    }
-
-    public void setDddCelular(Integer dddCelular) {
-        this.dddCelular = dddCelular;
-    }
-
-    public Long getCelular() {
-        return celular;
-    }
-
-    public void setCelular(Long celular) {
-        this.celular = celular;
     }
 
     public String getEmail() {
@@ -357,4 +311,43 @@ public class CadastroClientePbmrDto {
         this.nrSequenciaEndereco = nrSequenciaEndereco;
     }
 
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getDddTelefone() {
+        return dddTelefone;
+    }
+
+    public void setDddTelefone(String dddTelefone) {
+        this.dddTelefone = dddTelefone;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getDddCelular() {
+        return dddCelular;
+    }
+
+    public void setDddCelular(String dddCelular) {
+        this.dddCelular = dddCelular;
+    }
+
+    public String getCelular() {
+        return celular;
+    }
+
+    public void setCelular(String celular) {
+        this.celular = celular;
+    }
 }

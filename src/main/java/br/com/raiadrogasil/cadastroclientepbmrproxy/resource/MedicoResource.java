@@ -1,6 +1,10 @@
 package br.com.raiadrogasil.cadastroclientepbmrproxy.resource;
 
 import br.com.raiadrogasil.cadastroclientepbmrproxy.dto.MedicoDto;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -24,6 +28,7 @@ import java.util.Map;
 @RestController
 @Validated
 @RequestMapping("medico")
+@Api(value = "PBM", description = "Operações pertinentes a busca de dados do Medico.")
 public class MedicoResource {
 
     private final String TC_SERVICOS_URL;
@@ -35,7 +40,11 @@ public class MedicoResource {
         this.TC_SERVICOS_URL = tcServicosUrl;
     }
 
-
+    @ApiOperation(value = "Buscar dados do medico.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Medico encontrado"),
+            @ApiResponse(code = 500, message = "Erro interno."),
+    })
     @RequestMapping("/crm/{crm}/uf/{uf}")
     public ResponseEntity getMedicoPor(
                                @Valid @Positive(message = "CRM deve ser maior que zero")

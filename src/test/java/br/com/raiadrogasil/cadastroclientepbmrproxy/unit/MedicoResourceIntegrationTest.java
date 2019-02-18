@@ -1,4 +1,4 @@
-package br.com.raiadrogasil.cadastroclientepbmrproxy.resource;
+package br.com.raiadrogasil.cadastroclientepbmrproxy.unit;
 
 import br.com.raiadrogasil.cadastroclientepbmrproxy.dto.MedicoDto;
 import org.junit.Test;
@@ -20,7 +20,7 @@ import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class MedicoResourceTest {
+public class MedicoResourceIntegrationTest {
 
     @Autowired
     private TestRestTemplate restTemplate;

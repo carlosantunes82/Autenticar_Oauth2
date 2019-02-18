@@ -1,23 +1,31 @@
 package br.com.raiadrogasil.cadastroclientepbmrproxy.resource;
 
 import br.com.raiadrogasil.cadastroclientepbmrproxy.dto.CadastroClientePbmrDto;
+import br.com.raiadrogasil.cadastroclientepbmrproxy.dto.MedicoDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpHeaders;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
-import java.net.URI;
+import javax.validation.Valid;
+import javax.validation.constraints.*;
+
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping
+@Api(value = "PBM", description = "Operações pertinentes a Cadastro cliente no PBM.")
 public class CadastroClientePbmrResource {
 
     @Value("${portaltc.url.base}")
@@ -32,29 +40,40 @@ public class CadastroClientePbmrResource {
     @Autowired
     private RestTemplate restTemplate;
 
+    @ApiOperation(value = "Buscar dados do cliente a ser cadastrado.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Cliente encontrado"),
+            @ApiResponse(code = 500, message = "Argumentos invalidos"),
+    })
 
     @GetMapping(path = "v1/pbms/clientes")
-    private ResponseEntity getPbmsClientes(@Valid @NotNull(message = "ID do cliente deve ser informado")
-                                                          @RequestParam String idCliente) {
+    private ResponseEntity getPbmsClientes(@Valid @NotNull(message = "Favor informar o campo medicoUf.")
+                                                  @Min(value = 1, message = "ID do cliente deve ser informado")
+                                                  @Positive(message = "idCliente deve ser maior que zero")
+                                                  @Digits(integer = 20, fraction = 0, message = "idCliente deve conter apenas números")
+                                                  @RequestParam Long idCliente) {
         ResponseEntity response =
-                restTemplate.getForEntity(baseUrl + urlGetCliente , String.class, idCliente);
+                restTemplate.getForEntity(baseUrl + urlGetCliente, String.class, String.valueOf(idCliente));
 
         return ResponseEntity.ok(response.getBody());
     }
 
+    @ApiOperation(value = "Cadastradar")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "Cliente cadastrado, porém so retorna o codigo"),
+            @ApiResponse(code = 500, message = "Argumentos invalidos"),
+    })
     @PostMapping("v1/pbms/clientes")
-    @ResponseBody
-    private ResponseEntity postsPbmClientes(@RequestBody @Valid CadastroClientePbmrDto cadastroClientePbmrDto) {
+//    @ResponseBody
+    private ResponseEntity postPbmClientes(@RequestBody @Valid CadastroClientePbmrDto cadastroClientePbmrDto) {
 
-        Map<String, String> map =  new ObjectMapper().convertValue(cadastroClientePbmrDto, Map.class);
+        Map<String, String> map = new ObjectMapper().convertValue(cadastroClientePbmrDto, Map.class);
 
         ResponseEntity<String> response =
-                restTemplate.getForEntity(baseUrl + urlGravarCliente, String.class, map );
+                restTemplate.postForEntity(baseUrl + urlGravarCliente, null, String.class, map);
 
-        URI location = URI.create("");
-        HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.setLocation(location);
-        return new ResponseEntity( responseHeaders, HttpStatus.CREATED);
-//        return ResponseEntity.ok().build();
+//        ResponseEntity responseEntity = restTemplate.postForEntity(baseUrl + urlGravarCliente, cadastroClientePbmrDto, CadastroClientePbmrDto.class);
+
+        return ResponseEntity.noContent().build();
     }
 }
