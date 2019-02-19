@@ -1,28 +1,20 @@
 package br.com.raiadrogasil.cadastroclientepbmrproxy.unit;
 
 import br.com.raiadrogasil.cadastroclientepbmrproxy.dto.CadastroClientePbmrDto;
-import br.com.raiadrogasil.cadastroclientepbmrproxy.dto.MedicoDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.hamcrest.Matchers;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.List;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -48,21 +40,21 @@ public class CadastroClientePbmIntegrationTest {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 
-//    @Test
-//    public void getPbmsClientes_comIdClienteAlfanumerico_retornar_INTERNAL_SERVER_ERROR(){
-//
-//        String idCliente = "142272012";
-//        ResponseEntity<String> response = restTemplate.getForEntity(baseUrl + urlGetCliente , String.class, idCliente);
-//        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR );
-//    }
+    @Test
+    public void getPbmsClientes_comIdClienteAlfanumerico_retornar_INTERNAL_SERVER_ERROR(){
 
-//    @Test
-//    public void getPbmsClientes_comIdClienteVazio_retornar_INTERNAL_SERVER_ERROR(){
-//
-//        String idCliente = "";
-//        ResponseEntity<String> response = restTemplate.getForEntity(baseUrl + urlGetCliente , String.class, idCliente);
-//        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR );
-//    }
+        String idCliente = "WWW";
+        ResponseEntity<String> response = restTemplate.getForEntity(baseUrl + urlGetCliente , String.class, idCliente);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR );
+    }
+
+    @Test
+    public void getPbmsClientes_comIdClienteVazio_retornar_INTERNAL_SERVER_ERROR(){
+
+        String idCliente = "";
+        ResponseEntity<String> response = restTemplate.getForEntity(baseUrl + urlGetCliente , String.class, idCliente);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR );
+    }
 
     @Test
     public void postsPbmClientes_comDadosTelaCadastro_retornarOk(){
