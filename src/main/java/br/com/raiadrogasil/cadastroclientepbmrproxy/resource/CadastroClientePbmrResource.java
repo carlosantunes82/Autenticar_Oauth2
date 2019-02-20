@@ -1,7 +1,6 @@
 package br.com.raiadrogasil.cadastroclientepbmrproxy.resource;
 
 import br.com.raiadrogasil.cadastroclientepbmrproxy.dto.CadastroClientePbmrDto;
-import br.com.raiadrogasil.cadastroclientepbmrproxy.dto.MedicoDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -9,9 +8,6 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -19,8 +15,6 @@ import org.springframework.web.client.RestTemplate;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -64,15 +58,12 @@ public class CadastroClientePbmrResource {
             @ApiResponse(code = 500, message = "Argumentos invalidos"),
     })
     @PostMapping("v1/pbms/clientes")
-//    @ResponseBody
     private ResponseEntity postPbmClientes(@RequestBody @Valid CadastroClientePbmrDto cadastroClientePbmrDto) {
 
         Map<String, String> map = new ObjectMapper().convertValue(cadastroClientePbmrDto, Map.class);
 
         ResponseEntity<String> response =
                 restTemplate.postForEntity(baseUrl + urlGravarCliente, null, String.class, map);
-
-//        ResponseEntity responseEntity = restTemplate.postForEntity(baseUrl + urlGravarCliente, cadastroClientePbmrDto, CadastroClientePbmrDto.class);
 
         return ResponseEntity.noContent().build();
     }

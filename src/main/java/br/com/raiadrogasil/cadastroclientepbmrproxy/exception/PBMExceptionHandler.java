@@ -2,6 +2,7 @@ package br.com.raiadrogasil.cadastroclientepbmrproxy.exception;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,12 +18,12 @@ import javax.validation.ConstraintViolationException;
 import java.util.stream.Collectors;
 
 @ControllerAdvice
-public class CustomExceptionHandler {
+public class PBMExceptionHandler {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CustomExceptionHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PBMExceptionHandler.class);
 
     @ExceptionHandler(ConstraintViolationException.class)
-    protected ResponseEntity handleConstraintViolation(ConstraintViolationException ex, WebRequest request){
+    protected ResponseEntity handleConstraintViolation(ConstraintViolationException ex){
         return ResponseEntity
                 .badRequest()
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -83,7 +84,8 @@ public class CustomExceptionHandler {
     public ResponseEntity validationError(Exception ex) {
         LOGGER.error("Ocorreu um erro no pbm-proxy.", ex);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body("Ocorreu um erro interno.");
+                .body("Ocorreu um erro interno: \n"
+                        + ex.getMessage());
     }
 }
 
