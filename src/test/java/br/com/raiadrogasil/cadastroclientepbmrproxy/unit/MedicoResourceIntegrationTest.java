@@ -27,7 +27,7 @@ public class MedicoResourceIntegrationTest {
 
     @Test
     public void deveRetornarErroNaValidacaoDoCrmEUfAoConsultarMedico(){
-        ResponseEntity<Map<String, String>> response = restTemplate.exchange("/medico/crm/-50/uf/TESTE",
+        ResponseEntity<Map<String, String>> response = restTemplate.exchange("/v1/medico/crm/-50/uf/TESTE",
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<Map<String, String>>() {});
@@ -41,7 +41,7 @@ public class MedicoResourceIntegrationTest {
     @Test
     public void deveRetornarMedicoBuscado(){
         ResponseEntity<List<MedicoDto>> response =
-                restTemplate.exchange("/medico/crm/150/uf/SP",
+                restTemplate.exchange("/v1/medico/crm/150/uf/SP",
                         HttpMethod.GET,
                         null,
                         new ParameterizedTypeReference<List<MedicoDto>>() {});
@@ -55,7 +55,7 @@ public class MedicoResourceIntegrationTest {
     @Test
     public void deveRetornarMedicoInexistente(){
         ResponseEntity<String> response =
-                restTemplate.exchange("/medico/crm/987654321/uf/SP",
+                restTemplate.exchange("/v1/medico/crm/987654321/uf/SP",
                         HttpMethod.GET,
                         null,
                         new ParameterizedTypeReference<String>() {});

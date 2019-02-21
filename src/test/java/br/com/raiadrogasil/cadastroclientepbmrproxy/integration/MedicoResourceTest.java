@@ -40,7 +40,7 @@ public class MedicoResourceTest {
         Mockito.when(restTemplate.exchange(Mockito.anyString(), (HttpMethod) Mockito.any(), (HttpEntity) Mockito.any(), (ParameterizedTypeReference) Mockito.any(), (Map<String, ?>) Mockito.any()))
                 .thenReturn(responseEntity);
 
-        ResponseEntity<String> response = restTemplateTest.getForEntity("/medico/crm/1/uf/sp" , String.class);
+        ResponseEntity<String> response = restTemplateTest.getForEntity("/v1/medico/crm/1/uf/sp" , String.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     }

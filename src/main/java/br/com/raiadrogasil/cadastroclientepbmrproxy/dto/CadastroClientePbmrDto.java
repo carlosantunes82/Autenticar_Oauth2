@@ -1,8 +1,8 @@
 package br.com.raiadrogasil.cadastroclientepbmrproxy.dto;
 
-import net.bytebuddy.implementation.bind.annotation.Empty;
-
+import com.fasterxml.jackson.annotation.JsonFormat;
 import javax.validation.constraints.*;
+import java.time.LocalDate;
 
 public class CadastroClientePbmrDto {
 
@@ -16,13 +16,14 @@ public class CadastroClientePbmrDto {
     @NotNull(message = "Favor informar o campo nome.")
     private String nome;
 
-    @Min(value = 1, message = "Favor informar o campo CPF.")
+    @Digits(integer = 11, fraction = 0, message = "Favor digitar apenas numeros no campo CPF com no maximo 11 posicoes.")
+//    @Min(value = 1, message = "Favor informar o campo CPF.")
     @NotNull(message = "Favor informar o campo CPF.")
     private String cpf;
 
-    @Size(min = 1, message = "Favor informar o campo dataNascimento.")
     @NotNull(message = "Favor informar o campo dataNascimento.")
-    private String dataNascimento;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", locale = "pt-BR", timezone = "Brazil/East")
+    private LocalDate dataNascimento;
 
     @Size(min = 1, message = "Favor informar o campo sexo.")
     @NotNull(message = "Favor informar o campo sexo.")
@@ -41,7 +42,8 @@ public class CadastroClientePbmrDto {
 
     private String complemento;
 
-    @Size(min = 1, message = "Favor informar o campo cep.")
+    @Digits(integer = 8, fraction = 0, message = "Favor digitar apenas numeros no campo cep, com no maximo 8 posicoes.")
+//    @Size(min = 1, message = "Favor informar o campo cep.")
     @NotNull(message = "Favor informar o campo cep.")
     private String cep;
 
@@ -57,20 +59,25 @@ public class CadastroClientePbmrDto {
     @NotNull(message = "Favor informar o campo UF.")
     private String uf;
 
-    @Min(value = 1, message = "Favor informar o DDD do telefone residencial.")
+//    @Digits(integer = 2, fraction = 0, message = "Favor digitar apenas numeros no campo dddTelefone com no maximo 2 posicoes.")
+//    @Min(value = 1, message = "Favor informar o DDD do telefone residencial.")
     private String dddTelefone;
 
-    @Min(value = 1, message = "Favor informar o telefone residencial.")
+//    @Digits(integer = 9, fraction = 0, message = "Favor digitar apenas numeros no campo telefone com no maximo 9 posicoes.")
+//    @Min(value = 1, message = "Favor informar o telefone residencial.")
     private String telefone;
 
-    @Min(value = 1, message = "Favor informar o DDD do celular.")
+    @Digits(integer = 2, fraction = 0, message = "Favor digitar apenas numeros no campo dddCelular com no maximo 2 posicoes.")
+    @NotNull(message = "Favor informar o campo dddCelular.")
     private String dddCelular;
 
-    @Min(value = 1, message = "Favor informar o telefone celular.")
+    @Digits(integer = 9, fraction = 0, message = "Favor digitar apenas numeros no campo celular com no maximo 9 posicoes.")
+    @NotNull(message = "Favor informar o campo celular.")
     private String celular;
 
     @Size(min = 1, message = "Favor informar o campo e-mail.")
     @NotNull(message = "Favor informar o campo e-mail.")
+    @Email(message = "Favor digitar um e-mail valido.")
     private String email;
 
     @Min(value = 1, message = "Favor informar o campo medicoCrm.")
@@ -127,11 +134,11 @@ public class CadastroClientePbmrDto {
         this.nome = nome;
     }
 
-    public String getDataNascimento() {
+    public LocalDate getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(String dataNascimento) {
+    public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 

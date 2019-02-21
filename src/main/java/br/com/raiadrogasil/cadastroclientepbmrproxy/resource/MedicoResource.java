@@ -27,7 +27,6 @@ import java.util.Map;
 
 @RestController
 @Validated
-@RequestMapping("medico")
 @Api(value = "PBM", description = "Operações pertinentes a busca de dados do Medico.")
 public class MedicoResource {
 
@@ -45,7 +44,7 @@ public class MedicoResource {
             @ApiResponse(code = 200, message = "Medico encontrado"),
             @ApiResponse(code = 500, message = "Erro interno."),
     })
-    @RequestMapping("/crm/{crm}/uf/{uf}")
+    @RequestMapping("v1/medico/crm/{crm}/uf/{uf}")
     public ResponseEntity getMedicoPor(
                                @Valid @Positive(message = "CRM deve ser maior que zero")
                                    @NotNull(message = "CRM deve ser informado")

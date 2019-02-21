@@ -1,5 +1,7 @@
 package br.com.raiadrogasil.cadastroclientepbmrproxy.integration;
 
+import br.com.raiadrogasil.cadastroclientepbmrproxy.dto.CadastroClientePbmrDto;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -7,14 +9,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.client.RestTemplate;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.sun.xml.internal.ws.api.message.Packet.Status.Request;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
@@ -34,15 +41,14 @@ public class CadastroClientePbmrTest {
         Mockito.when(restTemplate.getForEntity(Mockito.anyString(), Mockito.any(), Mockito.anyString()))
                 .thenReturn(responseEntity);
 
-        ResponseEntity<String> response = restTemplateTest.getForEntity("/v1/pbms/clientes?idCliente=" + 1 , String.class); //
-
+        ResponseEntity<String> response = restTemplateTest.getForEntity("/v1/pbms/clientes?idCliente=" + 1 , String.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 
 //    @Test
 //    public void postPbmClientes_comOK_retornarOk(){
 //
-//        ResponseEntity responseEntity = new ResponseEntity<String>("sampleBodyString", HttpStatus.OK); // comportamento
+//        ResponseEntity responseEntity = new ResponseEntity<String>("sampleBodyString", HttpStatus.OK);
 //
 //        Mockito.when(
 //                restTemplate.postForEntity(
@@ -53,37 +59,17 @@ public class CadastroClientePbmrTest {
 //        )
 //                .thenReturn(responseEntity);
 //
+////        headers = "content-type=application/x-www-form-urlencoded"
 //
-//        ResponseEntity<String> response = restTemplateTest.postForEntity("/v1/pbms/clientes", null, String.class, new HashMap()); //
+//        MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
+//        headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
+//        headers.add(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
+//        HttpEntity<CadastroClientePbmrDto> request = new HttpEntity<CadastroClientePbmrDto>(headers);
+//
+//        ResponseEntity<String> response = restTemplateTest.postForEntity("/v1/pbms/clientes", request, String.class, new HashMap());
 //
 //        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 //    }
-
-
-
-
-//    @Test
-//    public void getPbmsClientes_comRetornoIntegracaoComErro_retornar_BAD_REQUEST(){
-//
-//        ResponseEntity responseEntity = new ResponseEntity<String>("sampleBodyString", HttpStatus.INTERNAL_SERVER_ERROR); // comportamento
-//        Mockito.when(restTemplate.getForEntity(Mockito.anyString(), Mockito.any(), Mockito.anyString()))
-//                .thenReturn(responseEntity);
-//
-//        ResponseEntity<String> response = restTemplateTest.getForEntity("/v1/pbms/clientes?idCliente=" + 1 , String.class); //
-//
-//        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
-//    }
-//
-//    @Test
-//    public void xxx() {
-//        Mockito.when(restTemplate.getForEntity(Mockito.anyString(), Mockito.any(), Mockito.anyString()))
-//                .thenThrow(IllegalAccessException.class);
-//
-//        ResponseEntity<String> response = restTemplateTest.getForEntity("/v1/pbms/clientes?idCliente=" + 1 , String.class); //
-//
-//        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
-//    }
-
 
 }
 

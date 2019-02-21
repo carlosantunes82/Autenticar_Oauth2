@@ -52,12 +52,12 @@ public class CadastroClientePbmrResource {
         return ResponseEntity.ok(response.getBody());
     }
 
-    @ApiOperation(value = "Cadastradar")
+    @ApiOperation(value = "Cadastrar cliente no PBM.")
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = "Cliente cadastrado, porém so retorna o codigo"),
             @ApiResponse(code = 500, message = "Argumentos invalidos"),
     })
-    @PostMapping("v1/pbms/clientes")
+    @PostMapping(value = "v1/pbms/clientes")
     private ResponseEntity postPbmClientes(@RequestBody @Valid CadastroClientePbmrDto cadastroClientePbmrDto) {
 
         Map<String, String> map = new ObjectMapper().convertValue(cadastroClientePbmrDto, Map.class);
