@@ -1,7 +1,5 @@
 package br.com.raiadrogasil.cadastroclientepbmrproxy.integration;
 
-import br.com.raiadrogasil.cadastroclientepbmrproxy.dto.CadastroClientePbmrDto;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -11,17 +9,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.client.RestTemplate;
-
-import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.Map;
-
-import static com.sun.xml.internal.ws.api.message.Packet.Status.Request;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
