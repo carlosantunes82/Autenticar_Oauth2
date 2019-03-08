@@ -1,6 +1,8 @@
 package br.com.raiadrogasil.cadastroclientepbmrproxy.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.validation.constraints.*;
 import java.time.LocalDate;
 
@@ -10,104 +12,132 @@ public class CadastroClientePbmrDto {
 
     @Min(value = 1, message = "Favor informar o campo idCliente.")
     @NotNull(message = "Favor informar o campo idCliente.")
+    @ApiModelProperty(notes="ID do cliente.", required = true)
     private Long idCliente;
 
     @Size(min = 1, message = "Favor informar o campo nome.")
     @NotNull(message = "Favor informar o campo nome.")
+    @ApiModelProperty(notes="Nome do cliente.", required = true)
     private String nome;
 
     @Digits(integer = 11, fraction = 0, message = "Favor digitar apenas numeros no campo CPF com no maximo 11 posicoes.")
-//    @Min(value = 1, message = "Favor informar o campo CPF.")
     @NotNull(message = "Favor informar o campo CPF.")
+    @ApiModelProperty(notes="CPF do cliente.", required = true)
     private String cpf;
 
     @NotNull(message = "Favor informar o campo dataNascimento.")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", locale = "pt-BR", timezone = "Brazil/East")
+    @ApiModelProperty(notes="Data de nascimento do cliente.", required = true)
     private LocalDate dataNascimento;
 
     @Size(min = 1, message = "Favor informar o campo sexo.")
     @NotNull(message = "Favor informar o campo sexo.")
+    @ApiModelProperty(notes="Sexo do cliente.", required = true)
     private String sexo;
 
-//    @Size(min = 1, message = "Favor informar o tipo do logradouro..")
+    @ApiModelProperty(notes="Logradouro do cliente.", required = false)
     private String tipoLogradouro; // VERIFICAR
 
     @Size(min = 1, message = "Favor informar o campo endereco.")
     @NotNull(message = "Favor informar o campo endereco.")
+    @ApiModelProperty(notes="Endereco do cliente.", required = true)
     private String endereco;
 
     @Min(value = 1, message = "Favor informar o campo numero.")
     @NotNull(message = "Favor informar o campo numero.")
+    @ApiModelProperty(notes="Numero do cliente.", required = true)
     private Integer numero;
 
+    @ApiModelProperty(notes="Complemento do cliente.", required = false)
     private String complemento;
 
     @Digits(integer = 8, fraction = 0, message = "Favor digitar apenas numeros no campo cep, com no maximo 8 posicoes.")
 //    @Size(min = 1, message = "Favor informar o campo cep.")
     @NotNull(message = "Favor informar o campo cep.")
+    @ApiModelProperty(notes="Cep do cliente.", required = true)
     private String cep;
 
     @Size(min = 1, message = "Favor informar o campo bairro.")
     @NotNull(message = "Favor informar o campo bairro.")
+    @ApiModelProperty(notes="Bairro do cliente.", required = true)
     private String bairro;
 
     @Size(min = 1, message = "Favor informar o campo cidade.")
     @NotNull(message = "Favor informar o campo cidade.")
+    @ApiModelProperty(notes="Cidade do cliente.", required = true)
     private String cidade;
 
     @Size(min = 1, message = "Favor informar o campo UF.")
     @NotNull(message = "Favor informar o campo UF.")
+    @ApiModelProperty(notes="UF do cliente.", required = true)
     private String uf;
 
 //    @Digits(integer = 2, fraction = 0, message = "Favor digitar apenas numeros no campo dddTelefone com no maximo 2 posicoes.")
 //    @Min(value = 1, message = "Favor informar o DDD do telefone residencial.")
+    @ApiModelProperty(notes="DDD do telefone fixo do cliente.", required = false)
     private String dddTelefone;
 
 //    @Digits(integer = 9, fraction = 0, message = "Favor digitar apenas numeros no campo telefone com no maximo 9 posicoes.")
 //    @Min(value = 1, message = "Favor informar o telefone residencial.")
+    @ApiModelProperty(notes="Telefone fixo do cliente.", required = false)
     private String telefone;
 
     @Digits(integer = 2, fraction = 0, message = "Favor digitar apenas numeros no campo dddCelular com no maximo 2 posicoes.")
     @NotNull(message = "Favor informar o campo dddCelular.")
+    @ApiModelProperty(notes="DDD do celular do cliente.", required = true)
     private String dddCelular;
 
     @Digits(integer = 9, fraction = 0, message = "Favor digitar apenas numeros no campo celular com no maximo 9 posicoes.")
     @NotNull(message = "Favor informar o campo celular.")
+    @ApiModelProperty(notes="Telefone celular do cliente.", required = true)
     private String celular;
 
     @Size(min = 1, message = "Favor informar o campo e-mail.")
     @NotNull(message = "Favor informar o campo e-mail.")
     @Email(message = "Favor digitar um e-mail valido.")
+    @ApiModelProperty(notes="E-mail do cliente.", required = true)
     private String email;
 
     @Min(value = 1, message = "Favor informar o campo medicoCrm.")
     @NotNull(message = "Favor informar o campo medicoCrm.")
+    @ApiModelProperty(notes="CRM do medico.", required = true)
     private Long medicoCrm;
 
     @Size(min = 1, message = "Favor informar o campo medicoNome.")
     @NotNull(message = "Favor informar o campo medicoNome.")
+    @ApiModelProperty(notes="Nome do medico.", required = true)
     private String medicoNome;
 
     @Size(min = 1, message = "Favor informar o campo medicoUf.")
     @NotNull(message = "Favor informar o campo medicoUf.")
+    @ApiModelProperty(notes="UF do medico.", required = true)
     private String medicoUf;
 
+    @ApiModelProperty(notes="Contato e-mail.", required = false)
     private String contatoEmail;
 
+    @ApiModelProperty(notes="Contato celular.", required = false)
     private String contatoCelular;
 
+    @ApiModelProperty(notes="Contato correio.", required = false)
     private String contatoCorreio;
 
+    @ApiModelProperty(notes="Contato permissao.", required = false)
     private String contatoPermissao;
 
+    @ApiModelProperty(notes="Codigo do produto.", required = false)
     private Long cdProduto;
 
+    @ApiModelProperty(notes="Preco bruto.", required = false)
     private String precoBruto;
 
+    @ApiModelProperty(notes="Preco liquido.", required = false)
     private String precoLiquido;
 
+    @ApiModelProperty(notes="isContatos.", required = false)
     private String isContatos;
 
+    @ApiModelProperty(notes="Nr sequencia endereco.", required = false)
     private Long nrSequenciaEndereco;
 
     public String getAcao() {

@@ -1,4 +1,4 @@
-package br.com.raiadrogasil.cadastroclientepbmrproxy.unit;
+package br.com.raiadrogasil.cadastroclientepbmrproxy.integration;
 
 import br.com.raiadrogasil.cadastroclientepbmrproxy.dto.CadastroClientePbmrDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -36,7 +36,7 @@ public class CadastroClientePbmIntegrationTest {
     public void getPbmsClientes_comIdClienteNumerico_retornarOk(){
 
         String idCliente = "142272012";
-        ResponseEntity<String> response = restTemplate.getForEntity(baseUrl + urlGetCliente , String.class, idCliente);
+        ResponseEntity<String> response = restTemplate.getForEntity(urlGetCliente , String.class, idCliente);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 

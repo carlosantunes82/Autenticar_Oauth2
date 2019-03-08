@@ -1,6 +1,5 @@
-package br.com.raiadrogasil.cadastroclientepbmrproxy.integration;
+package br.com.raiadrogasil.cadastroclientepbmrproxy.unit;
 
-import br.com.raiadrogasil.cadastroclientepbmrproxy.dto.MedicoDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -16,12 +15,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.List;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)

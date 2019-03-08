@@ -1,16 +1,15 @@
 package br.com.raiadrogasil.cadastroclientepbmrproxy.config;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.client.ClientHttpRequestFactory;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class AppConfig {
+public class AppConfig implements WebMvcConfigurer {
+
 
     @Value("${custom.rest.connection.connection-request-timeout}")
     public Integer connectionRequestTimeout;
@@ -22,7 +21,6 @@ public class AppConfig {
     public Integer readTimeout;
 
     @Bean
-//    @ConfigurationProperties(prefix = "custom.rest.connection")
     public RestTemplate restTemplate() {
 
         SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
@@ -32,10 +30,4 @@ public class AppConfig {
 
         return new RestTemplate(factory);
     }
-
-
-//    @Bean
-//    public RestTemplate restTemplate() {
-//        return new RestTemplate();
-//    }
 }
